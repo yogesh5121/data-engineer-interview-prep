@@ -17,7 +17,7 @@ order_id	customer_id	order_date	amount
 106	       3	        2026-01-20	1000
 107	       5	        2026-02-02	600
 
-Q1.Find customers who never placed an order.
+## Q1.Find customers who never placed an order.
 
 SELECT customer_name
 FROM customers c
@@ -26,7 +26,7 @@ ON c.customer_id = o.customer_id
 WHERE o.customer_id IS NULL
 
 
-Q2. Find the total amount spent by each customer.
+##Q2. Find the total amount spent by each customer.
 
 SELECT SUM(o.amount) as total_amount, c.customer_name
 FROM customers c
@@ -39,16 +39,16 @@ Expected Output
 |customer_name|total_amount|
 
 
-Q3.Find the top 2 customers based on total spending.
+## Q3.Find the top 2 customers based on total spending.
 
 WITH total AS
 (
   SELECT SUM(amount) as total_amount, customer_id
   FROM orders
   GROUP BY customer_id
-)
+),
 
-WITH topcustomer AS
+topcustomer AS
 (
   SELECT *, DENSE_RANK() OVER (ORDER BY total_amount DESC) as rn
   FROM total
@@ -57,15 +57,15 @@ WITH topcustomer AS
  FROM topcustomer
  WHERE rn <= 2
 
-Q4 For every customer, calculate:
+##Q4 For every customer, calculate:
 
-Total Orders
-Total Amount
-Average Amount
-First Order Date
-Last Order Date
+   # Total Orders
+   # Total Amount
+   # Average Amount
+   # First Order Date
+   #Last Order Date
 
-Return all customers, including those with no orders.
+## Q5.Return all customers, including those with no orders.
 
 
 SELECT COUNT(o.order_id) as Total_orders, 
